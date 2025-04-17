@@ -1,79 +1,16 @@
-import { useState } from "react";
-  import { Input } from "@/components/ui/input";
-  import { Button } from "@/components/ui/button";
-  import { Card, CardContent } from "@/components/ui/card";
-  import Image from "next/image";
-  
-  export default function AsistenciaCongreso() {
-    const [telefono, setTelefono] = useState("");
-    const [nombre, setNombre] = useState("");
-    const [mensaje, setMensaje] = useState("");
-  
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-  
-      if (!telefono || !nombre) {
-        setMensaje("Por favor completa ambos campos.");
-        return;
-      }
-  
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbxEjemploID/exec", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ telefono, nombre }),
-        });
-  
-        const data = await res.json();
-        if (data.success) {
-          setMensaje("Registro exitoso. ¡Bienvenido!");
-          setTelefono("");
-          setNombre("");
-        } else {
-          setMensaje("No se pudo registrar. Intenta nuevamente.");
-        }
-      } catch (error) {
-        setMensaje("Error al conectar con el servidor.");
-      }
-    };
-  
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-4">
-        <Image
-          src="/image.png"
-          alt="Hombres de Verdad Logo"
-          width={300}
-          height={150}
-        />
-        <h1 className="text-2xl mt-4 mb-6 font-bold text-center">
-          Bienvenido al segundo congreso de Hombres de verdad
-        </h1>
-  
-        <Card className="w-full max-w-md bg-white text-black">
-          <CardContent className="p-6">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <Input
-                type="text"
-                placeholder="Nombre completo"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-              />
-              <Input
-                type="tel"
-                placeholder="Número de teléfono"
-                value={telefono}
-                onChange={(e) => setTelefono(e.target.value)}
-              />
-              <Button type="submit" className="w-full">
-                Registrar asistencia
-              </Button>
-            </form>
-            {mensaje && <p className="mt-4 text-center font-semibold">{mensaje}</p>}
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-  
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Segundo Congreso de Hombres de Verdad</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <img src="logo.png" alt="Logo Congreso" class="logo" />
+    <h1>Bienvenido al Segundo Congreso de Hombres de Verdad</h1>
+    <p>Por favor, escanea el código QR o ingresa tu número para registrar tu asistencia.</p>
+  </div>
+</body>
+</html>
